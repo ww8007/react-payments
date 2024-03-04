@@ -11,7 +11,7 @@ export default meta;
 
 type Story = StoryObj<ButtonProps>;
 
-export const ButtonStory: Story = {
+export const HeaderStory: Story = {
 	args: {
 		buttonColor: "cyan"
 	},
