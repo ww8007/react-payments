@@ -35,7 +35,7 @@ const BottomSheet = ({ isOpen, children, onClose }: BottomSheetProps) => {
 		requestAnimationFrame(function animateBall() {
 			const interval = Date.now() - start;
 
-			positionY.current = current.scrollHeight - interval * 1.8;
+			positionY.current = current.scrollHeight - interval * 1;
 
 			if (positionY.current < 0) {
 				positionY.current = 0;
