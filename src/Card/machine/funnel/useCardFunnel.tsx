@@ -29,10 +29,14 @@ interface StepProps {
 const Funnel = ({ steps, step, children }: FunnelProps) => {
 	const validChildren = Children.toArray(children)
 		.filter(isValidElement)
-		.filter((child) =>
-			steps.includes((child.props as Partial<StepProps>).name ?? "CARD_LIST")
-		)
-		.map((child) => child as ReactElement<StepProps>);
+		.filter((child) => {
+			const name = (child.props as Partial<StepProps>).name;
+			if (name === undefined) {
+				throw new Error("자식 컴포넌트에 name이 없습니다.");
+			}
+			return steps.includes(name);
+		})
+		.map((child) => child as React.ReactElement<StepProps>);
 
 	const targetStep = validChildren.find((child) => child.props.name === step);
 
