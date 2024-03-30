@@ -1,6 +1,7 @@
 import { ReactNode, useCallback, useEffect, useRef, useState } from "react";
 
 import styled from "@emotion/styled";
+import { BOTTOM_SHEET_STATE } from "./models";
 
 export interface BottomSheetProps {
 	isOpen: boolean;
@@ -8,13 +9,15 @@ export interface BottomSheetProps {
 	onClose: () => void;
 }
 const BottomSheet = ({ isOpen, children, onClose }: BottomSheetProps) => {
-	const [status, setStatus] = useState<"OPEN" | "ING" | "CLOSE">("CLOSE");
+	const [status, setStatus] = useState<BOTTOM_SHEET_STATE>(
+		BOTTOM_SHEET_STATE.CLOSED
+	);
 
 	const bottomSheetRef = useRef<HTMLDivElement | null>(null);
 	const positionY = useRef(0);
 
 	const slideIn = useCallback(() => {
-		setStatus("ING");
+		setStatus(BOTTOM_SHEET_STATE.ING);
 
 		const { current } = bottomSheetRef;
 		if (current === null) {
@@ -37,7 +40,7 @@ const BottomSheet = ({ isOpen, children, onClose }: BottomSheetProps) => {
 			if (positionY.current < 0) {
 				positionY.current = 0;
 
-				setStatus("OPEN");
+				setStatus(BOTTOM_SHEET_STATE.OPEN);
 				return;
 			}
 
@@ -48,7 +51,7 @@ const BottomSheet = ({ isOpen, children, onClose }: BottomSheetProps) => {
 	}, []);
 
 	const slideOut = useCallback(() => {
-		setStatus("ING");
+		setStatus(BOTTOM_SHEET_STATE.ING);
 
 		const { current } = bottomSheetRef;
 		if (current === null) return;
@@ -70,7 +73,7 @@ const BottomSheet = ({ isOpen, children, onClose }: BottomSheetProps) => {
 				current.style.visibility = "visible";
 				current.style.opacity = "1";
 
-				setStatus("CLOSE");
+				setStatus(BOTTOM_SHEET_STATE.CLOSED);
 				onClose();
 				return;
 			}
@@ -82,8 +85,8 @@ const BottomSheet = ({ isOpen, children, onClose }: BottomSheetProps) => {
 	}, [onClose]);
 
 	const handleClickBackdrop = () => {
-		if (status === "ING") return;
-		if (status === "CLOSE") return;
+		if (status === BOTTOM_SHEET_STATE.ING) return;
+		if (status === BOTTOM_SHEET_STATE.CLOSED) return;
 
 		slideOut();
 	};
