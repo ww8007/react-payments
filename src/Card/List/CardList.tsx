@@ -9,12 +9,11 @@ import { convertObjectValuesToString } from "@/common/utils/object";
 import { CardFunnelProps } from "@/pages/CardFunnel";
 import styled from "@emotion/styled";
 import { useState } from "react";
-import { CARD_COLOR_MAP } from "../constants/cardCompany";
 import { useManageCardContext } from "../machine/card/useCardContext";
 import { CardInfo } from "../types/card";
-import { CARD_COMPANY } from "../types/cardCompany";
 import Card from "../ui/Card/Card";
 import EmptyCard from "../ui/Card/EmptyCard";
+import { getColorWithCompanyName } from "../utils";
 
 interface CardListProps extends CardFunnelProps {
 	cardList: CardInfo[];
@@ -61,7 +60,7 @@ const CardList = ({ cardList, onNext, onClickCard }: CardListProps) => {
 						>
 							<Card
 								size={"small"}
-								color={CARD_COLOR_MAP[card.companyName as CARD_COMPANY]}
+								color={getColorWithCompanyName(card.companyName)}
 							>
 								<Card.Top>
 									<Card.CardCompany text={`${card.companyName}카드`} />

@@ -15,12 +15,11 @@ import {
 	CARD_PASSWORD_LENGTH,
 	CARD_SECURITY_CODE_LENGTH
 } from "../constants";
-import { CARD_COLOR_MAP } from "../constants/cardCompany";
 import { CardInfo } from "../types/card";
-import { CARD_COMPANY } from "../types/cardCompany";
 import Card from "../ui/Card/Card";
 import EmptyCard from "../ui/Card/EmptyCard";
 import CardCompanyList from "../ui/CardCompany/CardCompanyList";
+import { getColorWithCompanyName } from "../utils";
 import {
 	formatExpiryDate,
 	onlyNumber,
@@ -95,7 +94,7 @@ const AddCard = ({ card, onNext, onPrev }: AddCardProps) => {
 				<Card
 					size='small'
 					onClick={open}
-					color={CARD_COLOR_MAP[card.companyName as CARD_COMPANY]}
+					color={getColorWithCompanyName(card.companyName)}
 				>
 					<Card.Top>
 						<Card.CardCompany text={`${card.companyName}카드`} />

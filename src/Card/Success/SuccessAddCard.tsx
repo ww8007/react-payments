@@ -6,11 +6,10 @@ import { maskStringAfterIndex } from "@/common/utils";
 import { convertObjectValuesToString } from "@/common/utils/object";
 import { CardFunnelProps } from "@/pages/CardFunnel";
 import styled from "@emotion/styled";
-import { CARD_COLOR_MAP } from "../constants/cardCompany";
 import { useManageCardContext } from "../machine/card/useCardContext";
 import { CardInfo } from "../types/card";
-import { CARD_COMPANY } from "../types/cardCompany";
 import Card from "../ui/Card/Card";
+import { getColorWithCompanyName } from "../utils";
 
 interface SuccessAddCardProps extends CardFunnelProps {
 	card: CardInfo;
@@ -27,10 +26,7 @@ const SuccessAddCard = ({ card, onNext }: SuccessAddCardProps) => {
 				</Title>
 			</TitleWrapper>
 			<CardWrapper>
-				<Card
-					size={"big"}
-					color={CARD_COLOR_MAP[card.companyName as CARD_COMPANY]}
-				>
+				<Card size={"big"} color={getColorWithCompanyName(card.companyName)}>
 					<Card.Top>
 						<Card.CardCompany text={`${card.companyName}카드`} />
 					</Card.Top>
