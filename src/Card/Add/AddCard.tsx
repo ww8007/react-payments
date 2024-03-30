@@ -35,7 +35,7 @@ export interface AddCardProps {
 const AddCard = ({ card, onNext, onPrev }: AddCardProps) => {
 	const { send } = useManageCardContext();
 
-	const { BottomSheet, isOpen, open, close } = useBottomSheet();
+	const { BottomSheet, open, close } = useBottomSheet();
 
 	const [expirationDate, onChangeExpirationDate, onKeyDownExpirationDate] =
 		useInputState(
@@ -274,7 +274,7 @@ const AddCard = ({ card, onNext, onPrev }: AddCardProps) => {
 					/>
 				</PasswordWrapper>
 			</FlexibleInput>
-			<BottomSheet isOpen={isOpen} onClose={close}>
+			<BottomSheet>
 				<CardCompanyList
 					onClick={(cardCompany) => {
 						send({
